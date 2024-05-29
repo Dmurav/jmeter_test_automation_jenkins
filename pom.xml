@@ -8,18 +8,20 @@
   <version>0.1.0</version>
   <name>jmeter-load-test</name>
 
-  <properties>
-    <performancetest.script>jmeter-load-test.jmx</performancetest.script>
-  </properties>
-
   <build>
     <plugins>
-
       <plugin>
         <groupId>com.lazerycode.jmeter</groupId>
         <artifactId>jmeter-maven-plugin</artifactId>
-        <version>2.9.0</version>
+        <version>3.1.0</version>
         <executions>
+          <!-- Generate JMeter configuration -->
+          <execution>
+            <id>configuration</id>
+            <goals>
+              <goal>configure</goal>
+            </goals>
+          </execution>
           <!-- Run JMeter tests -->
           <execution>
             <id>jmeter-tests</id>
@@ -27,8 +29,7 @@
               <goal>jmeter</goal>
             </goals>
           </execution>
-
-          <!-- Fail build on errors in test-->
+          <!-- Fail build on errors in test -->
           <execution>
             <id>jmeter-check-results</id>
             <goals>
@@ -36,116 +37,9 @@
             </goals>
           </execution>
         </executions>
-
-        <configuration>
-          <testFilesIncluded>
-            <jMeterTestFile>${performancetest.script}</jMeterTestFile>
-            <guiTestFile>${project.basedir}/src/test/jmeter/${performancetest.script}</guiTestFile>
-          </testFilesIncluded>
-          <jmeterVersion>5.0</jmeterVersion>
-
-          <jmeterExtensions>
-            <!-- Custom Thread Groups
-            https://jmeter-plugins.org/?search=jpgc-casutg
-            http://repo.maven.apache.org/maven2/kg/apc/jmeter-plugins-casutg/
-            -->
-            <artifact>kg.apc:jmeter-plugins-casutg:2.6</artifact>
-
-            <!-- Parallel Controller & Sampler
-            https://jmeter-plugins.org/?search=parallel
-            https://github.com/Blazemeter/jmeter-bzm-plugins/blob/master/parallel/Parallel.md
-            https://www.blazemeter.com/blog/how-to-use-the-parallel-controller-in-jmeter
-            -->
-            <artifact>com.blazemeter:jmeter-parallel:0.9</artifact>
-          </jmeterExtensions>
-
-          <testPlanLibraries>
-            <!-- JMeter Plugins Common Classes: Various utility classes to ease development of plugins
-            http://repo.maven.apache.org/maven2/kg/apc/jmeter-plugins-cmn-jmeter/
-            -->
-            <artifact>kg.apc:jmeter-plugins-cmn-jmeter:0.6</artifact>
-          </testPlanLibraries>
-
-          <downloadExtensionDependencies>false</downloadExtensionDependencies>
-          <downloadLibraryDependencies>false</downloadLibraryDependencies>
-          <downloadOptionalDependencies>false</downloadOptionalDependencies>
-          <downloadJMeterDependencies>false</downloadJMeterDependencies>
-
-          <!-- Configuring the jvm that the jmeter process runs in
-          https://github.com/jmeter-maven-plugin/jmeter-maven-plugin/wiki/Configuring-the-jvm-that-the-jmeter-process-runs-in
-          http://reins.altervista.org/java/A_Collection_of_JVM_Options_MP.html
-          https://www.oracle.com/technetwork/java/javase/tech/vmoptions-jsp-140102.html
-          -->
-          <jMeterProcessJVMSettings>
-            <xms>1024</xms>
-            <xmx>2048</xmx>
-            <arguments>
-              <argument>-XX:MaxMetaspaceSize=256m</argument>
-
-              <argument>-XX:+UseG1GC</argument>
-              <argument>-XX:MaxGCPauseMillis=100</argument>
-              <argument>-XX:G1ReservePercent=20</argument>
-
-              <argument>-Duser.language=en</argument>
-              <argument>-Duser.region=EN</argument>
-
-              <argument>-Dfile.encoding=UTF-8</argument>
-
-              <argument>-XX:-HeapDumpOnOutOfMemoryError</argument>
-              <argument>-server</argument>
-
-            </arguments>
-          </jMeterProcessJVMSettings>
-
-          <testResultsTimestamp>false</testResultsTimestamp>
-          <overrideRootLogLevel>DEBUG</overrideRootLogLevel>
-          <suppressJMeterOutput>false</suppressJMeterOutput>
-          <ignoreResultFailures>true</ignoreResultFailures>
-          <guiTestFile>${project.basedir}/src/test/jmeter/${performancetest.script}</guiTestFile>
-
-          <propertiesJMeter>
-            <jmeter.save.saveservice.thread_counts>true</jmeter.save.saveservice.thread_counts>
-            <jmeter.save.saveservice.subresults>true</jmeter.save.saveservice.subresults>
-            <sample_variables></sample_variables>
-            <!-- # Disable sent statistics to https://jmeter-plugins.org/stats/ -->
-            <jpgc.repo.sendstats>false</jpgc.repo.sendstats>
-          </propertiesJMeter>
-        </configuration>
-      </plugin>
-
-      <plugin>
-        <groupId>de.codecentric</groupId>
-        <artifactId>jmeter-graph-maven-plugin</artifactId>
-        <version>0.1.0</version>
-        <configuration>
-          <inputFile>${project.build.directory}/jmeter/results/jmeter-load-test.csv</inputFile>
-          <graphs>
-            <graph>
-              <pluginType>ThreadsStateOverTime</pluginType>
-              <width>800</width>
-              <height>600</height>
-              <outputFile>${project.build.directory}/jmeter/results/PerformanceTest-ThreadsStateOverTime.png</outputFile>
-            </graph>
-            <!-- ... you can declare more <graph>-elements here -->
-          </graphs>
-        </configuration>
       </plugin>
 
     </plugins>
   </build>
-
-  <developers>
-    <developer>
-      <id>Dmurav</id>
-      <name>Dmitrii Muravskii</name>
-      <email>demmy@bk.ru</email>
-      <url>https://github.com/Dmurav</url>
-      <organization>RTLabs</organization>
-      <organizationUrl>https://sber-tech.com/</organizationUrl>
-      <roles>
-        <role>senior tester</role>
-      </roles>
-    </developer>
-  </developers>
 
 </project>
