@@ -3,23 +3,10 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>edu.dima</groupId>
-  <artifactId>jmeter-loadtestweb</artifactId>
+  <artifactId>jmeter-load-test</artifactId>
   <packaging>jar</packaging>
   <version>0.1.0</version>
-  <name>jmeter-loadtestweb</name>
-
-  <dependencies>
-    <dependency>
-      <groupId>org.apache.maven.plugins</groupId>
-      <artifactId>maven-compiler-plugin</artifactId>
-      <version>3.10.0</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.maven.plugins</groupId>
-      <artifactId>maven-surefire-plugin</artifactId>
-      <version>3.0.0-M5</version>
-    </dependency>
-  </dependencies>
+  <name>jmeter-load-test</name>
 
   <build>
     <plugins>
