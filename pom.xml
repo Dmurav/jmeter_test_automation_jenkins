@@ -3,10 +3,10 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>edu.dima</groupId>
-  <artifactId>jmeter-load-test</artifactId>
+  <artifactId>jmeter-loadtestweb</artifactId>
   <packaging>jar</packaging>
   <version>0.1.0</version>
-  <name>jmeter-load-test</name>
+  <name>jmeter-loadtestweb</name>
 
   <dependencies>
     <dependency>
