@@ -11,14 +11,15 @@
   <properties>
     <!--test variables-->
     <base.url>computer-database.gatling.io</base.url>
-    <protocol>https</protocol>
+    <app.protocol>https</app.protocol>
     <connect.timeout>3000</connect.timeout>
     <response.timeout>4000</response.timeout>
-    <thread.number>2</thread.number>
+    <thread.number>4</thread.number>
     <rampup>2</rampup>
     <startup.delay>0</startup.delay>
     <test.duration>60</test.duration>
     <target.rpm>4</target.rpm>
+
     <!--plugins-->
     <jmeter.plugin.version>3.1.0</jmeter.plugin.version>
     <!--encoding-->
@@ -40,6 +41,34 @@
         <groupId>com.lazerycode.jmeter</groupId>
         <artifactId>jmeter-maven-plugin</artifactId>
         <version>${jmeter.plugin.version}</version>
+        <configuration>
+          <!--jmeter.properties-->
+          <propertiesJMeter>
+            <prometheus.port>${prometheus.port}</prometheus.port>
+            <prometheus.ip>${prometheus.ip}</prometheus.ip>
+            <prometheus.save.threads>${prometheus.save.threads}</prometheus.save.threads>
+            <prometheus.save.threads.name>${prometheus.save.threads.name}</prometheus.save.threads.name>
+            <prometheus.save.jvm>${prometheus.save.jvm}</prometheus.save.jvm>
+          </propertiesJMeter>
+          <!--user.properties-->
+          <propertiesUser>
+            <base.url>${base.url}</base.url>
+            <app.protocol>${app.protocol}</app.protocol>
+            <connect.timeout>${connect.timeout}</connect.timeout>
+            <response.timeout>${response.timeout}</response.timeout>
+            <thread.number>${thread.number}</thread.number>
+            <rampup>${rampup}</rampup>
+            <startup.delay>${startup.delay}</startup.delay>
+            <test.duration>${test.duration}</test.duration>
+            <target.rpm>${target.rpm}</target.rpm>
+
+          </propertiesUser>
+          <!--plugins bin/lib-->
+          <testPlanLibraries>
+            <jmeterArtifact>com.github.johrstrom:jmeter-prometheus-plugin:0.6.0</jmeterArtifact>
+            <jmeterArtifact>kg.apc:jmeter-plugins-casutg:2.10</jmeterArtifact>
+          </testPlanLibraries>
+        </configuration>
         <executions>
           <!-- Generate JMeter configuration -->
           <execution>
@@ -63,33 +92,6 @@
             </goals>
           </execution>
         </executions>
-        <configuration>
-          <!--jmeter.properties-->
-          <propertiesJMeter>
-            <prometheus.port>${prometheus.port}</prometheus.port>
-            <prometheus.ip>${prometheus.ip}</prometheus.ip>
-            <prometheus.save.threads>${prometheus.save.threads}</prometheus.save.threads>
-            <prometheus.save.threads.name>${prometheus.save.threads.name}</prometheus.save.threads.name>
-            <prometheus.save.jvm>${prometheus.save.jvm}</prometheus.save.jvm>
-          </propertiesJMeter>
-          <!--user.properties-->
-          <propertiesUser>
-            <base.url>${base.url}</base.url>
-            <app.protocol>${protocol}</app.protocol>
-            <connect.timeout>${connect.timeout}</connect.timeout>
-            <response.timeout>${response.timeout}</response.timeout>
-            <thread.number>${thread.number}</thread.number>
-            <rampup>${rampup}</rampup>
-            <startup.delay>${startup.delay}</startup.delay>
-            <test.duration>${test.duration}</test.duration>
-            <target.rpm>${target.rpm}</target.rpm>
-          </propertiesUser>
-          <!--plugins bin/lib-->
-          <testPlanLibraries>
-            <jmeterArtifact>com.github.johrstrom:jmeter-prometheus-plugin:0.6.0</jmeterArtifact>
-            <jmeterArtifact>kg.apc:jmeter-plugins-casutg:2.10</jmeterArtifact>
-          </testPlanLibraries>
-        </configuration>
       </plugin>
     </plugins>
   </build>
