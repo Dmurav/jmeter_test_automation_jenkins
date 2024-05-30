@@ -8,6 +8,19 @@
   <version>0.1.0</version>
   <name>jmeter-load-test</name>
 
+  <dependencies>
+    <dependency>
+      <groupId>com.github.johrstrom</groupId>
+      <artifactId>jmeter-prometheus-plugin</artifactId>
+      <version>0.6.0</version>
+    </dependency>
+    <dependency>
+      <groupId>kg.apc</groupId>
+      <artifactId>jmeter-plugins-extras</artifactId>
+      <version>1.4.0</version>
+    </dependency>
+  </dependencies>
+
   <build>
     <plugins>
       <plugin>
@@ -37,6 +50,19 @@
             </goals>
           </execution>
         </executions>
+        <configuration>
+          <propertiesJMeter>
+            <prometheus.port>9270</prometheus.port>
+            <prometheus.ip>127.0.0.1</prometheus.ip>
+            <prometheus.save.threads>true</prometheus.save.threads>
+            <prometheus.save.threads.name>jmeter_threads</prometheus.save.threads.name>
+            <prometheus.save.jvm>true</prometheus.save.jvm>
+          </propertiesJMeter>
+          <testPlanLibraries>
+            <jmeterArtifact>com.github.johrstrom:jmeter-prometheus-plugin:0.6.0</jmeterArtifact>
+            <jmeterArtifact>kg.apc:jmeter-plugins-extras:1.4.0</jmeterArtifact>
+          </testPlanLibraries>
+        </configuration>
       </plugin>
 
     </plugins>
